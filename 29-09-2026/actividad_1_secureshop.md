@@ -78,6 +78,7 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | Secretos y claves (JWT, API keys, variables de entorno) | Información (sensible) | Exposición en el repositorio o en archivos de configuración. | Robo desde un servidor o contenedor comprometido. | Falta de rotación de claves, que permite su uso por personas que ya no deberían tener acceso. |
 | Registros de actividad (logs) | Datos | Borrado o alteración de logs por un atacante para ocultar rastros. | Registro de datos sensibles que luego se filtran. | Saturación del almacenamiento por exceso de registros (log flooding). |
 | Copias de seguridad (backups) | Datos | Robo de respaldos sin cifrar. | Cifrado o borrado de los respaldos por ransomware. | Fallos o corrupción de las copias que no se detectan a tiempo. |
+| Copias de seguridad (backups) | Datos | Acceso a una copia completa de toda la información del negocio (usuarios, pedidos, credenciales); fuga masiva sin tocar los sistemas en producción. | Respaldos alterados o corruptos que, al restaurarse, reintroducen datos falsos o código malicioso. | Sin posibilidad de recuperarse ante un ataque, borrado o falla; pérdida permanente de información. |
 
 ## 4. Mecanismo de control por amenaza
 
