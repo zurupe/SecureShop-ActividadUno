@@ -22,7 +22,7 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | N.º | Activo | Tipo |
 |---|---|---|
 | 1 | Datos de usuarios | Información |
-| 2 | Credenciales | Información (sensible) |
+| 2 | Credenciales | Información |
 | 3 | Catálogo de productos | Datos |
 | 4 | Pedidos y transacciones | Datos |
 | 5 | Código fuente (repositorio GitHub) | Software |
@@ -33,10 +33,10 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | 10 | API Gateway (punto de entrada común) | Servicio |
 | 11 | Bases de datos (usuarios, productos y pedidos) | Infraestructura |
 | 12 | Servidores, contenedores y red de despliegue | Infraestructura |
-| 13 | Secretos y claves (tokens JWT, claves de API, variables de entorno) | Información (sensible) |
+| 13 | Secretos y claves (tokens JWT, claves de API, variables de entorno) | Información |
 | 14 | Registros de actividad (logs) | Datos |
 | 15 | Copias de seguridad (backups) | Datos |
----
+---4
 
 ### 2. Consecuencias para SecureShop
 
@@ -45,7 +45,7 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | Activo | Tipo | Si es accedido sin autorización | Si es modificado | Si queda indisponible |
 |---|---|---|---|---|
 | Datos de usuarios | Información | Filtración de datos personales (nombre, correo, dirección, teléfono); riesgo de suplantación de identidad, sanciones por incumplir normas de protección de datos y pérdida de confianza. | Datos falsos o alterados: envíos a direcciones incorrectas, cuentas secuestradas, información poco confiable. | Los clientes no pueden registrarse ni gestionar su cuenta; se afecta la atención y la operación. |
-| Credenciales | Información (sensible) | Toma de control de cuentas de clientes y administradores; fraude, compras no autorizadas y acceso a otros sistemas si se reutilizan contraseñas. | Un atacante puede cambiar contraseñas o crear cuentas privilegiadas; se bloquea a usuarios legítimos. | Nadie puede iniciar sesión; se pierden ventas y aumenta la carga de soporte. |
+| Credenciales | Información | Toma de control de cuentas de clientes y administradores; fraude, compras no autorizadas y acceso a otros sistemas si se reutilizan contraseñas. | Un atacante puede cambiar contraseñas o crear cuentas privilegiadas; se bloquea a usuarios legítimos. | Nadie puede iniciar sesión; se pierden ventas y aumenta la carga de soporte. |
 | Catálogo de productos | Datos | Exposición de información comercial (costos, márgenes, productos no lanzados) a la competencia. | Precios o descripciones manipulados (por ejemplo, productos a precio 0), pérdidas económicas y daño a la reputación. | No se puede mostrar ni vender productos; caen los ingresos. |
 | Pedidos y transacciones | Datos | Exposición del historial de compras y direcciones de entrega; violación de privacidad y posible fraude. | Cambio de montos, estados o direcciones; pérdidas financieras, disputas con clientes y pérdida de trazabilidad. | No se pueden crear ni procesar pedidos; se detiene el negocio y hay incumplimiento de entregas. |
 | Código fuente (repositorio GitHub) | Software | Robo de propiedad intelectual y exposición de vulnerabilidades o secretos incluidos en el código, lo que facilita ataques. | Inserción de código malicioso o puertas traseras (ataque a la cadena de suministro) que se despliegan en producción. | Se paraliza el desarrollo y no es posible corregir errores ni publicar actualizaciones. |
@@ -56,7 +56,7 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | API Gateway | Servicio | Visibilidad de rutas, tokens y tráfico de todos los servicios; punto único desde el cual atacar todo el sistema. | Enrutamiento a servicios falsos, eliminación de controles de autenticación o límites de solicitudes. | Toda la plataforma queda inaccesible aunque los servicios funcionen (punto único de falla). |
 | Bases de datos (usuarios, productos, pedidos) | Infraestructura | Fuga masiva y directa de toda la información del negocio. | Corrupción o manipulación de datos; pérdida de integridad difícil de detectar y revertir. | Pérdida de datos si no hay respaldos; interrupción total o parcial del servicio. |
 | Servidores, contenedores y red | Infraestructura | Control del entorno: instalación de malware, robo de datos y movimiento lateral entre servicios. | Cambios de configuración que debilitan la seguridad o degradan el rendimiento. | Caída de toda la plataforma (fallas, ataques DDoS, errores de despliegue); pérdidas por inactividad. |
-| Secretos y claves (JWT, API keys, variables de entorno) | Información (sensible) | Suplantación de servicios y usuarios; acceso a bases de datos y a servicios externos. | Emisión de tokens falsos; se rompe la confianza entre microservicios. | Los servicios no pueden autenticarse entre sí ni conectarse a las bases de datos; fallo generalizado. |
+| Secretos y claves (JWT, API keys, variables de entorno) | Información | Suplantación de servicios y usuarios; acceso a bases de datos y a servicios externos. | Emisión de tokens falsos; se rompe la confianza entre microservicios. | Los servicios no pueden autenticarse entre sí ni conectarse a las bases de datos; fallo generalizado. |
 | Registros de actividad (logs) | Datos | Exposición de datos sensibles o técnicos (IP, errores, identificadores) útiles para un atacante. | Borrado o alteración de evidencia; no se detectan ni se investigan incidentes. | Sin visibilidad ni capacidad de auditoría o respuesta ante incidentes; dificulta el cumplimiento normativo. |
 
 ### 3. Amenazas de cada activo
@@ -64,7 +64,7 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | Activo | Tipo | Amenaza 1 | Amenaza 2 | Amenaza 3 |
 |---|---|---|---|---|
 | Datos de usuarios | Información | Inyección SQL que permite extraer datos personales. | Abuso de privilegios por personal interno con acceso excesivo. | Phishing e ingeniería social dirigidos a clientes y empleados. |
-| Credenciales | Información (sensible) | Ataques de fuerza bruta y credential stuffing sobre el inicio de sesión. | Phishing para robar usuario y contraseña. | Almacenamiento débil de contraseñas (hash inseguro) que facilita su descifrado si se roba la base de datos. |
+| Credenciales | Información | Ataques de fuerza bruta y credential stuffing sobre el inicio de sesión. | Phishing para robar usuario y contraseña. | Almacenamiento débil de contraseñas (hash inseguro) que facilita su descifrado si se roba la base de datos. |
 | Catálogo de productos | Datos | Modificación no autorizada de precios mediante la API. | Scraping masivo del catálogo por parte de la competencia. | Cuenta de administrador comprometida que carga o cambia productos. |
 | Pedidos y transacciones | Datos | Manipulación de parámetros (montos, estados) en las solicitudes. | Acceso a pedidos de otros clientes por falta de control de acceso (IDOR). | Fraude con tarjetas robadas o repudio de transacciones por falta de trazabilidad. |
 | Código fuente (repositorio GitHub) | Software | Robo de cuentas de GitHub de los desarrolladores. | Dependencias vulnerables o maliciosas (cadena de suministro). | Subida accidental de secretos y contraseñas al repositorio. |
