@@ -59,11 +59,22 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | Secretos y claves (JWT, API keys, variables de entorno) | Información (sensible) | Suplantación de servicios y usuarios; acceso a bases de datos y a servicios externos. | Emisión de tokens falsos; se rompe la confianza entre microservicios. | Los servicios no pueden autenticarse entre sí ni conectarse a las bases de datos; fallo generalizado. |
 | Registros de actividad (logs) | Datos | Exposición de datos sensibles o técnicos (IP, errores, identificadores) útiles para un atacante. | Borrado o alteración de evidencia; no se detectan ni se investigan incidentes. | Sin visibilidad ni capacidad de auditoría o respuesta ante incidentes; dificulta el cumplimiento normativo. |
 
-### 3. Conclusiones
+### 3. Amenazas de cada activo
 
-| N.º | Conclusión |
-|---|---|
-| 1 | Los activos más críticos son las credenciales, los datos de usuarios, los pedidos y las bases de datos, porque su compromiso afecta a la vez la confidencialidad, la integridad y la disponibilidad del negocio. |
-| 2 | El API Gateway es un punto único de falla: su indisponibilidad o compromiso afecta a todos los servicios. |
-| 3 | En una arquitectura de microservicios los activos dependen unos de otros (por ejemplo, pedidos depende de usuarios y productos), por lo que un incidente en uno puede propagarse a los demás. |
-| 4 | Estos activos servirán de base para las siguientes actividades: análisis de amenazas, vulnerabilidades, riesgos y controles de seguridad. |
+| Activo | Tipo | Amenaza 1 | Amenaza 2 | Amenaza 3 |
+|---|---|---|---|---|
+| Datos de usuarios | Información | Inyección SQL que permite extraer datos personales. | Abuso de privilegios por personal interno con acceso excesivo. | Phishing e ingeniería social dirigidos a clientes y empleados. |
+| Credenciales | Información (sensible) | Ataques de fuerza bruta y credential stuffing sobre el inicio de sesión. | Phishing para robar usuario y contraseña. | Almacenamiento débil de contraseñas (hash inseguro) que facilita su descifrado si se roba la base de datos. |
+| Catálogo de productos | Datos | Modificación no autorizada de precios mediante la API. | Scraping masivo del catálogo por parte de la competencia. | Cuenta de administrador comprometida que carga o cambia productos. |
+| Pedidos y transacciones | Datos | Manipulación de parámetros (montos, estados) en las solicitudes. | Acceso a pedidos de otros clientes por falta de control de acceso (IDOR). | Fraude con tarjetas robadas o repudio de transacciones por falta de trazabilidad. |
+| Código fuente (repositorio GitHub) | Software | Robo de cuentas de GitHub de los desarrolladores. | Dependencias vulnerables o maliciosas (cadena de suministro). | Subida accidental de secretos y contraseñas al repositorio. |
+| Aplicación web (frontend) | Software | Cross-Site Scripting (XSS) que roba sesiones o datos. | Defacement o secuestro del dominio/DNS. | Scripts de terceros comprometidos que capturan datos de pago (skimming). |
+| Microservicio de usuarios | Servicio | Escalada de privilegios por control de acceso deficiente. | Fuerza bruta sobre los endpoints de autenticación. | Inyección de código en los endpoints de registro y perfil. |
+| Microservicio de productos | Servicio | Inyección SQL en filtros y búsquedas. | Abuso de la API sin límites de solicitudes. | Alteración no autorizada de inventario o precios. |
+| Microservicio de pedidos | Servicio | Acceso a pedidos ajenos por manipulación de identificadores (IDOR). | Repetición de solicitudes (replay) que duplica pedidos o pagos. | Denegación de servicio por saturación en la creación de pedidos. |
+| API Gateway | Servicio | Ataques DDoS contra el punto de entrada. | Omisión de la autenticación por mala configuración de rutas. | Intercepción de tráfico (man-in-the-middle) si no se usa TLS. |
+| Bases de datos (usuarios, productos, pedidos) | Infraestructura | Inyección SQL desde los servicios. | Ransomware que cifra o borra la información. | Credenciales de base de datos expuestas o configuración por defecto. |
+| Servidores, contenedores y red | Infraestructura | Ataques DDoS que saturan la red. | Imágenes de contenedores vulnerables o con malware. | Puertos y servicios expuestos por mala configuración en la nube. |
+| Secretos y claves (JWT, API keys, variables de entorno) | Información (sensible) | Exposición en el repositorio o en archivos de configuración. | Robo desde un servidor o contenedor comprometido. | Falta de rotación de claves, que permite su uso por personas que ya no deberían tener acceso. |
+| Registros de actividad (logs) | Datos | Borrado o alteración de logs por un atacante para ocultar rastros. | Registro de datos sensibles que luego se filtran. | Saturación del almacenamiento por exceso de registros (log flooding). |
+| Copias de seguridad (backups) | Datos | Robo de respaldos sin cifrar. | Cifrado o borrado de los respaldos por ransomware. | Fallos o corrupción de las copias que no se detectan a tiempo. |
