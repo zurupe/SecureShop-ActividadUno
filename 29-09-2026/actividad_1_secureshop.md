@@ -1,7 +1,12 @@
-* **MATERIA:** Desarrollo de Software Seguro
-* **FECHA:** 29 de septiembre de 2026
-* **ACTIVIDAD:** Actividad 1
 
+### Trabajo en Clase
+
+---
+
+* **MATERIA:** Desarollo de Software Seguro
+* **NRC:** 36900
+* **VERSIÓN.:** V2.0
+* **CARRERA:** Ingeniería de Software
 **ESTUDIANTE(S):**
 * Pablo Zurita, Alex Cuzco, Stiven Diaz
 
@@ -12,6 +17,7 @@
 ### 1. Identificación y clasificación de activos
 
 Tipos de activo considerados: información, software, servicio, infraestructura y datos.
+
 
 | N.º | Activo | Tipo |
 |---|---|---|
@@ -29,7 +35,7 @@ Tipos de activo considerados: información, software, servicio, infraestructura 
 | 12 | Servidores, contenedores y red de despliegue | Infraestructura |
 | 13 | Secretos y claves (tokens JWT, claves de API, variables de entorno) | Información (sensible) |
 | 14 | Registros de actividad (logs) | Datos |
-
+| 15 | Copias de seguridad (backups) | Datos |
 ---
 
 ### 2. Consecuencias para SecureShop
